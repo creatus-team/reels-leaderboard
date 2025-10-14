@@ -27,18 +27,18 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-2: oklch(0.6 0.118 184.704);
+  --color-chart-3: oklch(0.398 0.07 227.392);
+  --color-chart-4: oklch(0.828 0.189 84.429);
+  --color-chart-5: oklch(0.769 0.188 70.08);
+  --color-sidebar: oklch(0.985 0 0);
+  --color-sidebar-foreground: oklch(0.145 0 0);
+  --color-sidebar-primary: oklch(0.205 0 0);
+  --color-sidebar-primary-foreground: oklch(0.985 0 0);
+  --color-sidebar-accent: oklch(0.97 0 0);
+  --color-sidebar-accent-foreground: oklch(0.205 0 0);
+  --color-sidebar-border: oklch(0.922 0 0);
+  --color-sidebar-ring: oklch(0.708 0 0);
 }
 
 :root {
@@ -117,7 +117,7 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden !important;
-    background-color: white !important; /* 배경색 흰색으로 강제 설정 */
+    background-color: transparent !important; /* 배경색 투명으로 설정 */
   }
 }
 
@@ -128,7 +128,7 @@
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: white !important; /* 배경색 흰색으로 강제 설정 */
+  background-color: transparent !important; /* 배경색 투명으로 설정 */
 }
 
 .header-container {
@@ -151,13 +151,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: column; /* 인디케이터를 아래로 옮기기 위해 추가 */
-  align-items: center; /* 인디케이터를 중앙 정렬하기 위해 추가 */
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* 인디케이터의 절대 위치를 위한 기준 */
+  padding-bottom: 60px; /* 인디케이터 공간 확보 */
 }
 
 .mobile-container {
-  width: 1300px; /* 데스크톱에서 4개 이상 보이도록 너비 조정 */
-  max-width: 1300px;
+  width: 1260px; /* 4 cards * 300px + 3 gaps * 20px = 1260px */
+  max-width: 1260px;
 }
 
 .slider-track {
@@ -171,11 +173,16 @@
 }
 
 .indicators-container {
-  width: fit-content; /* 인디케이터 영역을 내용에 맞게 조정 */
+  position: absolute; /* 절대 위치 지정 */
+  bottom: -40px; /* 슬라이더 하단에 위치 */
+  left: 50%; /* 중앙 정렬 */
+  transform: translateX(-50%); /* 중앙 정렬 */
   display: flex;
-  justify-content: center; /* 인디케이터 하단 중앙 정렬 */
-  margin-top: 24px;
-  padding: 0; /* 불필요한 패딩 제거 */
+  justify-content: center;
+  margin-top: 0; /* 기존 마진 제거 */
+  padding: 0;
+  width: fit-content;
+  z-index: 10; /* 다른 요소 위에 표시 */
 }
 
 /* 태블릿 스타일 (1024px 미만) */
@@ -190,8 +197,8 @@
   }
   
   .mobile-container {
-    width: 800px !important;
-    max-width: 800px !important;
+    width: 780px !important; /* 3 cards * 260px + 2 gaps * 0px = 780px */
+    max-width: 780px !important;
   }
   
   .card-item {
@@ -206,7 +213,7 @@
     overflow-x: hidden !important;
     width: 100vw !important;
     max-width: 100vw !important;
-    background-color: white !important; /* 배경색 흰색으로 강제 설정 */
+    background-color: transparent !important; /* 배경색 투명으로 설정 */
   }
   
   .header-container {
@@ -240,10 +247,11 @@
     width: 280px !important;
     max-width: 280px !important;
     margin: 0 auto !important;
+    overflow: visible; /* 인디케이터가 컨테이너 밖으로 나갈 수 있도록 */
   }
   
   .slider-track {
-    gap: 0px !important;
+    gap: 20px !important; /* 태블릿에서도 카드 간격 유지 */
   }
   
   .card-item {
@@ -270,6 +278,7 @@
   .mobile-container {
     width: 260px !important;
     max-width: 260px !important;
+    overflow: visible; /* 인디케이터가 컨테이너 밖으로 나갈 수 있도록 */
   }
   
   .card-item {

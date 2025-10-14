@@ -91,8 +91,9 @@ function App() {
 
     const interval = setInterval(() => {
       setCurrentIndex(prev => {
-        const maxIndex = Math.max(0, leaderboardData.length - 4)
-        return prev >= maxIndex ? 0 : prev + 1
+        const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
+        const totalSlides = Math.ceil(leaderboardData.length / 4);
+        return prev >= totalSlides - 1 ? 0 : prev + 1
       })
     }, 4000)
 
@@ -101,15 +102,17 @@ function App() {
 
   const goToPrevious = () => {
     setCurrentIndex(prev => {
-      const maxIndex = Math.max(0, leaderboardData.length - 4)
-      return prev <= 0 ? maxIndex : prev - 1
+      const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
+      const totalSlides = Math.ceil(leaderboardData.length / 4);
+      return prev <= 0 ? totalSlides - 1 : prev - 1
     })
   }
 
   const goToNext = () => {
     setCurrentIndex(prev => {
-      const maxIndex = Math.max(0, leaderboardData.length - 4)
-      return prev >= maxIndex ? 0 : prev + 1
+      const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
+      const totalSlides = Math.ceil(leaderboardData.length / 4);
+      return prev >= totalSlides - 1 ? 0 : prev + 1
     })
   }
 
@@ -145,7 +148,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">리더보드를 불러오는 중...</p>
@@ -156,7 +159,7 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
             <h2 className="text-lg font-semibold text-red-800 mb-2">데이터를 불러오는 중 오류가 발생했습니다</h2>
@@ -176,7 +179,7 @@ function App() {
 
   if (!leaderboardData || leaderboardData.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600">리더보드 데이터가 없습니다.</p>
@@ -185,8 +188,8 @@ function App() {
     )
   }
 
-  const maxIndex = Math.max(0, leaderboardData.length - 4)
-  const totalSlides = maxIndex + 1
+  const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
+  const totalSlides = Math.ceil(leaderboardData.length / 4); // Calculate total slides based on 4 cards per slide
 
   return (
     <div className="leaderboard-main min-h-screen py-8">
@@ -204,28 +207,28 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * (100 / 4)}%)`, // 4개 카드 기준으로 슬라이드
+                transform: `translateX(-${currentIndex * (100 / 4)}%)`, // 4 cards visible at once
               }}
             >
               {leaderboardData.map((item, index) => {
                 const rank = index + 1
-                const thumbnailIndex = index % testThumbnails.length
+
                 
                 return (
                   <Card 
-                    key={`${item['Instagram ID']}-${index}`}
+                    key={`${item["Instagram ID"]}-${index}`}
                     className={`card-item flex-shrink-0 bg-white shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer ${
                       hoveredCard === index ? 'scale-105' : ''
                     }`}
                     onMouseEnter={() => setHoveredCard(index)}
                     onMouseLeave={() => setHoveredCard(null)}
-                    onClick={() => window.open(getInstagramUrl(item['Instagram ID']), '_blank')}
+                    onClick={() => window.open(getInstagramUrl(item["Instagram ID"]), '_blank')}
                   >
                     <CardContent className="p-0 h-full flex flex-col">
                       <div className="relative flex-1 overflow-hidden rounded-t-lg">
                         <img 
-                          src={testThumbnails[thumbnailIndex]} 
-                          alt={`${item['Instagram ID']} 썸네일`}
+                          src={item["썸네일"] && item["썸네일"].length > 0 ? item["썸네일"][0].url : placeholderImage} 
+                          alt={`${item["Instagram ID"]} 썸네일`}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             e.target.src = placeholderImage
@@ -237,12 +240,12 @@ function App() {
                         </div>
                         
                         <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
-                          📅 {item['날짜']}
+                          📅 {item["날짜"]}
                         </div>
                         
                         <div className="absolute bottom-28 left-0 right-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3">
                           <div className="text-center">
-                            <div className="text-2xl font-bold">{item['조회수_한국어']}</div>
+                            <div className="text-2xl font-bold">{item["조회수_한국어"]}</div>
                           </div>
                         </div>
                         
@@ -256,15 +259,15 @@ function App() {
                       <div className="p-4" style={{ minHeight: '120px' }}>
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-bold text-lg text-gray-800">
-                            {item['Instagram ID']}
+                            {item["Instagram ID"]}
                           </h3>
-                          <Badge className={`text-xs ${getCategoryColor(item['카테고리'])}`}>
-                            {item['카테고리']}
+                          <Badge className={`text-xs ${getCategoryColor(item["카테고리"])}`}>
+                            {item["카테고리"]}
                           </Badge>
                         </div>
                         
                         <p className="text-gray-600 text-sm line-clamp-3">
-                          {item['캡션'] || '릴스 영상을 확인해보세요!'}
+                          {item["캡션"] || '릴스 영상을 확인해보세요!'}
                         </p>
                       </div>
                     </CardContent>
@@ -312,8 +315,8 @@ function App() {
             </div>
           )}
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
   )
 }
 
