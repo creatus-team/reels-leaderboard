@@ -46,7 +46,9 @@ function App() {
       const result = await response.json()
       
       if (result.records) {
-        const transformedData = result.records
+        // Filter out entries without thumbnails and transform data
+        const allData = result.records
+          .filter(record => record.fields['썸네일'] && record.fields['썸네일'].length > 0)
           .map(record => ({
             'Instagram ID': record.fields['Instagram ID'] || '@unknown',
             '조회수': record.fields['조회수'] || 0,
@@ -54,10 +56,24 @@ function App() {
             '날짜': record.fields['날짜'] || '',
             '카테고리': record.fields['카테고리'] || '기타',
             '캡션': record.fields['캡션'] || '릴스 영상을 확인해보세요!',
-            '썸네일': record.fields['썸네일'] || null
+            '썸네일': record.fields['썸네일'] || null,
+            '영상URL': record.fields['영상URL'] || null
           }))
           .sort((a, b) => b["조회수"] - a["조회수"])
-          .slice(0, 15)
+        
+        // Remove duplicates by keeping only the highest view count per Instagram ID
+        const uniqueData = []
+        const seenIds = new Set()
+        
+        for (const item of allData) {
+          if (!seenIds.has(item['Instagram ID'])) {
+            seenIds.add(item['Instagram ID'])
+            uniqueData.push(item)
+          }
+        }
+        
+        // Take top 15
+        const transformedData = uniqueData.slice(0, 15)
         
         setLeaderboardData(transformedData)
         setLastUpdated(new Date())
@@ -222,7 +238,10 @@ function App() {
                     }`}
                     onMouseEnter={() => setHoveredCard(index)}
                     onMouseLeave={() => setHoveredCard(null)}
-                    onClick={() => window.open(getInstagramUrl(item["Instagram ID"]), '_blank')}
+                    onClick={() => {
+                      const url = item["영상URL"] || getInstagramUrl(item["Instagram ID"])
+                      window.open(url, '_blank')
+                    }}
                   >
                     <CardContent className="p-0 h-full flex flex-col">
                       <div className="relative flex-1 overflow-hidden rounded-t-lg">
@@ -249,11 +268,7 @@ function App() {
                           </div>
                         </div>
                         
-                        {hoveredCard === index && (
-                          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-                            <ExternalLink className="w-8 h-8 text-white" />
-                          </div>
-                        )}
+
                       </div>
                       
                       <div className="p-4" style={{ minHeight: '120px' }}>
