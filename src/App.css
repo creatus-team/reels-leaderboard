@@ -151,6 +151,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column; /* 인디케이터를 아래로 옮기기 위해 추가 */
+  align-items: center; /* 인디케이터를 중앙 정렬하기 위해 추가 */
 }
 
 .mobile-container {
@@ -169,10 +171,11 @@
 }
 
 .indicators-container {
-  width: 100%;
+  width: fit-content; /* 인디케이터 영역을 내용에 맞게 조정 */
   display: flex;
   justify-content: center; /* 인디케이터 하단 중앙 정렬 */
   margin-top: 24px;
+  padding: 0; /* 불필요한 패딩 제거 */
 }
 
 /* 태블릿 스타일 (1024px 미만) */
@@ -250,9 +253,9 @@
   }
   
   .indicators-container {
-    width: calc(100vw - 16px) !important;
+    width: fit-content !important; /* 인디케이터 영역을 내용에 맞게 조정 */
     max-width: calc(100vw - 16px) !important;
-    margin: 16px 8px 0 8px !important;
+    margin: 16px auto 0 auto !important; /* 중앙 정렬 및 상단 마진 조정 */
     padding: 0 !important;
   }
 }

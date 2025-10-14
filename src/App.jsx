@@ -56,7 +56,7 @@ function App() {
             '캡션': record.fields['캡션'] || '릴스 영상을 확인해보세요!',
             '썸네일': record.fields['썸네일'] || null
           }))
-          .sort((a, b) => b['조회수'] - a['조회수'])
+          .sort((a, b) => b["조회수"] - a["조회수"])
           .slice(0, 15)
         
         setLeaderboardData(transformedData)
@@ -199,7 +199,7 @@ function App() {
           </div>
         </div>
 
-        <div className="slider-main w-full max-w-6xl">
+        <div className="slider-main w-full max-w-6xl flex flex-col items-center">
           <div className="mobile-container relative overflow-hidden">
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
