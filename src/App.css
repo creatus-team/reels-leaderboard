@@ -158,8 +158,29 @@
 }
 
 .mobile-container {
-  width: 1260px; /* 4 cards * 300px + 3 gaps * 20px = 1260px */
-  max-width: 1260px;
+  width: 100%;
+  max-width: 1260px; /* Desktop: 4 cards */
+}
+
+/* Mobile: 1 card */
+@media (max-width: 767px) {
+  .mobile-container {
+    max-width: 300px;
+  }
+}
+
+/* Tablet: 2 cards */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .mobile-container {
+    max-width: 620px; /* 2 cards * 300px + 1 gap * 20px */
+  }
+}
+
+/* Desktop: 4 cards */
+@media (min-width: 1280px) {
+  .mobile-container {
+    max-width: 1260px; /* 4 cards * 300px + 3 gaps * 20px */
+  }
 }
 
 .slider-track {

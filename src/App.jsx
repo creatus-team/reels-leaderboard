@@ -18,6 +18,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
+  const [cardsPerView, setCardsPerView] = useState(4)
 
   const testThumbnails = [thumb1, thumb2, thumb3, thumb4]
 
@@ -102,32 +103,47 @@ function App() {
     fetchLeaderboardData()
   }, [])
 
+  // Responsive cards per view
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width < 768) {
+        setCardsPerView(1) // Mobile: 1 card
+      } else if (width < 1280) {
+        setCardsPerView(2) // Tablet: 2 cards
+      } else {
+        setCardsPerView(4) // Desktop: 4 cards
+      }
+    }
+
+    handleResize() // Initial check
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   useEffect(() => {
     if (!isAutoPlaying || leaderboardData.length === 0) return
 
     const interval = setInterval(() => {
       setCurrentIndex(prev => {
-        const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
-        const totalSlides = Math.ceil(leaderboardData.length / 4);
+        const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
         return prev >= totalSlides - 1 ? 0 : prev + 1
       })
     }, 4000)
 
     return () => clearInterval(interval)
-  }, [isAutoPlaying, leaderboardData.length])
+  }, [isAutoPlaying, leaderboardData.length, cardsPerView])
 
   const goToPrevious = () => {
     setCurrentIndex(prev => {
-      const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
-      const totalSlides = Math.ceil(leaderboardData.length / 4);
+      const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
       return prev <= 0 ? totalSlides - 1 : prev - 1
     })
   }
 
   const goToNext = () => {
     setCurrentIndex(prev => {
-      const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
-      const totalSlides = Math.ceil(leaderboardData.length / 4);
+      const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
       return prev >= totalSlides - 1 ? 0 : prev + 1
     })
   }
@@ -204,15 +220,14 @@ function App() {
     )
   }
 
-  const maxIndex = Math.max(0, leaderboardData.length - 4); // 4 cards visible at once
-  const totalSlides = Math.ceil(leaderboardData.length / 4); // Calculate total slides based on 4 cards per slide
+  const totalSlides = Math.ceil(leaderboardData.length / cardsPerView); // Calculate total slides based on cards per view
 
   return (
     <div className="leaderboard-main min-h-screen py-8">
       <div className="flex flex-col items-center justify-center min-h-screen px-4">
         <div className="header-container w-full max-w-6xl text-center mb-8">
-          <div className="mobile-header bg-blue-600 text-white py-4 px-8 rounded-lg shadow-lg inline-block mb-6">
-            <h1 className="title-text text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+          <div className="mobile-header bg-blue-600 text-white py-3 px-4 md:py-4 md:px-8 rounded-lg shadow-lg inline-block mb-6 max-w-full">
+            <h1 className="title-text text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight">
               크리투스에선 매주 새로운 성과자가 쏟아지고 있습니다
             </h1>
           </div>
@@ -223,7 +238,7 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * (100 / 4)}%)`, // 4 cards visible at once
+                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
               }}
             >
               {leaderboardData.map((item, index) => {
@@ -291,12 +306,12 @@ function App() {
               })}
             </div>
 
-            {leaderboardData.length > 4 && (
+            {leaderboardData.length > cardsPerView && (
               <>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToPrevious}
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -305,7 +320,7 @@ function App() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToNext}
                 >
                   <ChevronRight className="w-4 h-4" />
