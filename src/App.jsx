@@ -57,7 +57,7 @@ function App() {
             '카테고리': record.fields['카테고리'] || '기타',
             '캡션': record.fields['캡션'] || '릴스 영상을 확인해보세요!',
             '썸네일': record.fields['썸네일'] || null,
-            '영상URL': record.fields['영상URL'] || null
+            '영상URL': record.fields['URL'] || null
           }))
           .sort((a, b) => b["조회수"] - a["조회수"])
         
