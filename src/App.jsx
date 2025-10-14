@@ -19,10 +19,8 @@ function App() {
   const [error, setError] = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
 
-  // 테스트용 썸네일 배열
   const testThumbnails = [thumb1, thumb2, thumb3, thumb4]
 
-  // Airtable에서 데이터 가져오기
   const fetchLeaderboardData = async () => {
     try {
       setIsLoading(true)
@@ -48,7 +46,6 @@ function App() {
       const result = await response.json()
       
       if (result.records) {
-        // 데이터 변환 및 정렬
         const transformedData = result.records
           .map(record => ({
             'Instagram ID': record.fields['Instagram ID'] || '@unknown',
@@ -60,7 +57,7 @@ function App() {
             '썸네일': record.fields['썸네일'] || null
           }))
           .sort((a, b) => b['조회수'] - a['조회수'])
-          .slice(0, 15) // 상위 15개만
+          .slice(0, 15)
         
         setLeaderboardData(transformedData)
         setLastUpdated(new Date())
@@ -76,7 +73,6 @@ function App() {
     }
   }
 
-  // 조회수 포맷팅 함수
   const formatViewCount = (count) => {
     if (count >= 10000) {
       return `${Math.floor(count / 10000)}만`
@@ -86,12 +82,10 @@ function App() {
     return `${count}`
   }
 
-  // 컴포넌트 마운트 시 데이터 가져오기
   useEffect(() => {
     fetchLeaderboardData()
   }, [])
 
-  // 자동 슬라이드 기능
   useEffect(() => {
     if (!isAutoPlaying || leaderboardData.length === 0) return
 
@@ -105,7 +99,6 @@ function App() {
     return () => clearInterval(interval)
   }, [isAutoPlaying, leaderboardData.length])
 
-  // 슬라이드 네비게이션
   const goToPrevious = () => {
     setCurrentIndex(prev => {
       const maxIndex = Math.max(0, leaderboardData.length - 4)
@@ -120,12 +113,10 @@ function App() {
     })
   }
 
-  // 인디케이터 클릭
   const goToSlide = (index) => {
     setCurrentIndex(index)
   }
 
-  // 카테고리별 색상 매핑
   const getCategoryColor = (category) => {
     const colors = {
       '뷰티/미용': 'bg-pink-100 text-pink-800',
@@ -139,7 +130,6 @@ function App() {
     return colors[category] || colors['기타']
   }
 
-  // 순위별 아이콘 색상
   const getRankColor = (rank) => {
     if (rank === 1) return 'bg-yellow-500 text-white'
     if (rank === 2) return 'bg-gray-400 text-white'
@@ -149,15 +139,13 @@ function App() {
     return 'bg-purple-500 text-white'
   }
 
-  // 인스타그램 링크 생성
   const getInstagramUrl = (username) => {
     return `https://www.instagram.com/${username.replace('@', '')}/`
   }
 
-  // 로딩 상태
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">리더보드를 불러오는 중...</p>
@@ -166,10 +154,9 @@ function App() {
     )
   }
 
-  // 에러 상태
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
             <h2 className="text-lg font-semibold text-red-800 mb-2">데이터를 불러오는 중 오류가 발생했습니다</h2>
@@ -187,10 +174,9 @@ function App() {
     )
   }
 
-  // 데이터가 없는 경우
   if (!leaderboardData || leaderboardData.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600">리더보드 데이터가 없습니다.</p>
@@ -199,13 +185,12 @@ function App() {
     )
   }
 
-  const maxIndex = Math.max(0, leaderboardData.length - 4)
-  const totalSlides = maxIndex + 1
+  const cardsPerPage = 4; // 한 페이지에 4개의 카드를 표시
+  const totalPages = Math.ceil(leaderboardData.length / cardsPerPage);
 
   return (
-    <div className="leaderboard-main min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+    <div className="leaderboard-main min-h-screen py-8 bg-white">
       <div className="flex flex-col items-center justify-center min-h-screen px-4">
-        {/* 헤더 */}
         <div className="header-container w-full max-w-6xl text-center mb-8">
           <div className="mobile-header bg-blue-600 text-white py-4 px-8 rounded-lg shadow-lg inline-block mb-6">
             <h1 className="title-text text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
@@ -214,14 +199,12 @@ function App() {
           </div>
         </div>
 
-        {/* 리더보드 컨테이너 */}
         <div className="slider-main w-full max-w-6xl">
           <div className="mobile-container relative overflow-hidden">
-            {/* 카드 컨테이너 */}
             <div 
-              className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
+              className="slider-track flex transition-transform duration-500 ease-in-out"
               style={{ 
-                transform: `translateX(-${currentIndex * 25}%)`,
+                transform: `translateX(-${currentIndex * (100 / cardsPerPage)}%)`,
               }}
             >
               {leaderboardData.map((item, index) => {
@@ -239,7 +222,6 @@ function App() {
                     onClick={() => window.open(getInstagramUrl(item['Instagram ID']), '_blank')}
                   >
                     <CardContent className="p-0 h-full flex flex-col">
-                      {/* 썸네일 이미지 */}
                       <div className="relative flex-1 overflow-hidden rounded-t-lg">
                         <img 
                           src={testThumbnails[thumbnailIndex]} 
@@ -250,24 +232,20 @@ function App() {
                           }}
                         />
                         
-                        {/* 순위 배지 */}
                         <div className={`absolute top-3 left-3 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${getRankColor(rank)}`}>
                           #{rank}
                         </div>
                         
-                        {/* 날짜 배지 */}
                         <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
                           📅 {item['날짜']}
                         </div>
                         
-                        {/* 조회수 띠 */}
                         <div className="absolute bottom-28 left-0 right-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3">
                           <div className="text-center">
                             <div className="text-2xl font-bold">{item['조회수_한국어']}</div>
                           </div>
                         </div>
                         
-                        {/* 호버 시 외부 링크 아이콘 */}
                         {hoveredCard === index && (
                           <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
                             <ExternalLink className="w-8 h-8 text-white" />
@@ -275,7 +253,6 @@ function App() {
                         )}
                       </div>
                       
-                      {/* 하단 정보 */}
                       <div className="p-4" style={{ minHeight: '120px' }}>
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-bold text-lg text-gray-800">
@@ -296,8 +273,7 @@ function App() {
               })}
             </div>
 
-            {/* 네비게이션 버튼 */}
-            {leaderboardData.length > 4 && (
+            {leaderboardData.length > cardsPerPage && (
               <>
                 <Button
                   variant="outline"
@@ -314,16 +290,15 @@ function App() {
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToNext}
                 >
-                  <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4" />
                 </Button>
               </>
             )}
           </div>
 
-          {/* 인디케이터 */}
-          {totalSlides > 1 && (
+          {totalPages > 1 && (
             <div className="indicators-container flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalSlides }, (_, index) => (
+              {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
