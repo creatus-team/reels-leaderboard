@@ -266,7 +266,7 @@ function App() {
                           </Badge>
                         </div>
                         
-                        <p className="text-gray-600 text-sm line-clamp-3">
+                        <p className="text-gray-600 text-sm line-clamp-1">
                           {item["캡션"] || '릴스 영상을 확인해보세요!'}
                         </p>
                       </div>
