@@ -311,7 +311,7 @@ function App() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute -left-4 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToPrevious}
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -320,7 +320,7 @@ function App() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute -right-4 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToNext}
                 >
                   <ChevronRight className="w-4 h-4" />
