@@ -189,7 +189,7 @@ function App() {
   const totalSlides = maxIndex + 1
 
   return (
-    <div className="leaderboard-main min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+    <div className="leaderboard-main min-h-screen py-8">
       <div className="flex flex-col items-center justify-center min-h-screen px-4">
         <div className="header-container w-full max-w-6xl text-center mb-8">
           <div className="mobile-header bg-blue-600 text-white py-4 px-8 rounded-lg shadow-lg inline-block mb-6">
@@ -204,7 +204,7 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * 25}%)`,
+                transform: `translateX(-${currentIndex * (100 / 4)}%)`, // 4개 카드 기준으로 슬라이드
               }}
             >
               {leaderboardData.map((item, index) => {
