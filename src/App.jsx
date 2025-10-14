@@ -145,7 +145,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">리더보드를 불러오는 중...</p>
@@ -156,7 +156,7 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
             <h2 className="text-lg font-semibold text-red-800 mb-2">데이터를 불러오는 중 오류가 발생했습니다</h2>
@@ -176,7 +176,7 @@ function App() {
 
   if (!leaderboardData || leaderboardData.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center">
           <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600">리더보드 데이터가 없습니다.</p>
@@ -185,11 +185,11 @@ function App() {
     )
   }
 
-  const cardsPerPage = 4; // 한 페이지에 4개의 카드를 표시
-  const totalPages = Math.ceil(leaderboardData.length / cardsPerPage);
+  const maxIndex = Math.max(0, leaderboardData.length - 4)
+  const totalSlides = maxIndex + 1
 
   return (
-    <div className="leaderboard-main min-h-screen py-8 bg-white">
+    <div className="leaderboard-main min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
       <div className="flex flex-col items-center justify-center min-h-screen px-4">
         <div className="header-container w-full max-w-6xl text-center mb-8">
           <div className="mobile-header bg-blue-600 text-white py-4 px-8 rounded-lg shadow-lg inline-block mb-6">
@@ -202,9 +202,9 @@ function App() {
         <div className="slider-main w-full max-w-6xl">
           <div className="mobile-container relative overflow-hidden">
             <div 
-              className="slider-track flex transition-transform duration-500 ease-in-out"
+              className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * (100 / cardsPerPage)}%)`,
+                transform: `translateX(-${currentIndex * 25}%)`,
               }}
             >
               {leaderboardData.map((item, index) => {
@@ -273,7 +273,7 @@ function App() {
               })}
             </div>
 
-            {leaderboardData.length > cardsPerPage && (
+            {leaderboardData.length > 4 && (
               <>
                 <Button
                   variant="outline"
@@ -290,15 +290,15 @@ function App() {
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
                   onClick={goToNext}
                 >
-                <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4" />
                 </Button>
               </>
             )}
           </div>
 
-          {totalPages > 1 && (
+          {totalSlides > 1 && (
             <div className="indicators-container flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalPages }, (_, index) => (
+              {Array.from({ length: totalSlides }, (_, index) => (
                 <button
                   key={index}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
