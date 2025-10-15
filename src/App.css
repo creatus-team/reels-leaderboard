@@ -207,6 +207,37 @@
   }
 }
 
+/* iframe 임베드 전용 스타일 - 모든 여백 제거 */
+html, body {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+.leaderboard-main {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* iframe 내부에서 컨테이너 최대 확장 */
+.mobile-container {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 10px !important; /* 최소한의 패딩만 */
+}
+
+.slider-main {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* 모바일 반응형 폰트 크기 증가 */
 @media (max-width: 767px) {
   .card-item h3 {
