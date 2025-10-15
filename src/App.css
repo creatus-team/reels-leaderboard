@@ -237,6 +237,22 @@
 .slider-track {
   display: flex;
   gap: 20px; /* 원래 카드 간격으로 복원 */
+  animation: infiniteSlide 75s linear infinite; /* 75초에 한 바퀴 - 5번 복제에 맞게 조정 */
+}
+
+/* 진짜 무한 슬라이드 애니메이션 */
+@keyframes infiniteSlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-7200px); /* 15개 카드 * 320px * 1.5 = 7200px (더 긴 거리) */
+  }
+}
+
+/* 호버 시 애니메이션 일시정지 */
+.slider-wrapper:hover .slider-track {
+  animation-play-state: paused;
 }
 
 /* 페이드 아웃 효과 - 좌우 끝부분 투명 처리 */

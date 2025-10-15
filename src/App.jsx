@@ -140,16 +140,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // 진짜 무한 슬라이드 - 부드러운 연속 이동
-  useEffect(() => {
-    if (leaderboardData.length === 0) return
-
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => prev + 1) // 계속 증가
-    }, 3000) // 3초마다 이동
-
-    return () => clearInterval(interval)
-  }, [leaderboardData.length])
+  // CSS 애니메이션으로 진짜 무한 슬라이드 구현 (JavaScript 타이머 제거)
 
   // 긴 아이디 폰트 크기 자동 조절 함수
   const getIdFontSize = (id) => {
@@ -256,14 +247,9 @@ function App() {
 
         <div className="slider-main w-full max-w-6xl flex flex-col items-center">
           <div className="mobile-container slider-wrapper relative overflow-hidden">
-            <div 
-              className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
-              style={{ 
-                transform: `translateX(-${(currentIndex % leaderboardData.length) * 320}px)`,
-              }}
-            >
-              {/* 무한 슬라이드를 위해 카드를 3번 반복 */}
-              {[...leaderboardData, ...leaderboardData, ...leaderboardData].map((item, index) => {
+            <div className="slider-track">
+              {/* 진짜 무한 슬라이드를 위해 카드를 5번 반복 */}
+              {[...leaderboardData, ...leaderboardData, ...leaderboardData, ...leaderboardData, ...leaderboardData].map((item, index) => {
                 const originalIndex = index % leaderboardData.length
                 const rank = originalIndex + 1
 
@@ -331,24 +317,8 @@ function App() {
               })}
             </div>
 
-            {/* 자동 슬라이드로 인해 네비게이션 버튼 제거 */}
-          </div>
+            {/* CSS 무한 슬라이드로 인해 네비게이션 버튼 및 인디케이터 제거 */}          </div>
 
-          {totalIndicators > 1 && (
-            <div className="indicators-container flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalIndicators }, (_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    currentIndex === index 
-                      ? 'bg-blue-600 scale-125' 
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  onClick={() => goToSlide(index)}
-                />
-              ))}
-            </div>
-          )}
         </div>
         </div>
         </div>
