@@ -265,7 +265,7 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * 320}px)`,
+                transform: `translateX(-${currentIndex * 275}px)`,
               }}
             >
               {leaderboardData.map((item, index) => {
