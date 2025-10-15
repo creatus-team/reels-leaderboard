@@ -154,7 +154,7 @@
   flex-direction: column;
   align-items: center;
   position: relative; /* 인디케이터의 절대 위치를 위한 기준 */
-  padding-bottom: 60px; /* 인디케이터 공간 확보 */
+  padding-bottom: 40px; /* 인디케이터 공간 확보 - 여백 줄임 */
 }
 
 .mobile-container {
@@ -195,7 +195,7 @@
 
 .indicators-container {
   position: absolute; /* 절대 위치 지정 */
-  bottom: -40px; /* 슬라이더 하단에 위치 */
+  bottom: -20px; /* 슬라이더 하단에 위치 - 여백 반으로 줄임 */
   left: 50%; /* 중앙 정렬 */
   transform: translateX(-50%); /* 중앙 정렬 */
   display: flex;
@@ -284,7 +284,7 @@
   .indicators-container {
     width: fit-content !important; /* 인디케이터 영역을 내용에 맞게 조정 */
     max-width: calc(100vw - 16px) !important;
-    margin: 16px auto 0 auto !important; /* 중앙 정렬 및 상단 마진 조정 */
+    margin: 8px auto 0 auto !important; /* 중앙 정렬 및 상단 마진 조정 - 여백 반으로 줄임 */
     padding: 0 !important;
   }
 }
@@ -305,6 +305,25 @@
   .card-item {
     width: 260px !important;
     height: 582px !important;
+  }
+}
+
+/* 모바일 버튼 최적화 */
+@media (max-width: 767px) {
+  /* 좌우 버튼 터치 영역 확대 및 위치 최적화 */
+  .mobile-container button[class*="absolute"] {
+    min-width: 44px !important; /* iOS 권장 최소 터치 영역 */
+    min-height: 44px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  /* 버튼 호버 효과 모바일에서 제거 */
+  .mobile-container button[class*="absolute"]:active {
+    transform: translateY(-50%) scale(0.95) !important;
+    transition: transform 0.1s ease !important;
   }
 }
 

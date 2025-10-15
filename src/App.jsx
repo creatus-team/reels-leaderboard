@@ -27,9 +27,9 @@ function App() {
       setIsLoading(true)
       setError(null)
       
-      const AIRTABLE_API_KEY = 'patT4JHdBeYWwAiNK.35c9ab03fe7a3dec703efc5c6f837c03fa8410494b098b55879497d5a4f463bc'
-      const BASE_ID = 'apphCg257EyPVwr7T'
-      const TABLE_NAME = '영상 DB'
+      const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY || 'patvZr35hzPXZDDF0.38f4bf9d7b76e00d073fdff6351bc6201e5f552ab2ab37af25d49d33bf945e11'
+      const BASE_ID = import.meta.env.VITE_BASE_ID || 'apphCg257EyPVwr7T'
+      const TABLE_NAME = import.meta.env.VITE_TABLE_NAME || '영상 DB'
       
       const response = await fetch(
         `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc`,
@@ -101,6 +101,25 @@ function App() {
 
   useEffect(() => {
     fetchLeaderboardData()
+    
+    // 자동 업데이트 스케줄링 - 매주 월요일 21:00
+    const checkAndUpdate = () => {
+      const now = new Date()
+      const dayOfWeek = now.getDay() // 0=일요일, 1=월요일
+      const hour = now.getHours()
+      const minute = now.getMinutes()
+      
+      // 월요일 21:00~21:01 사이에 업데이트
+      if (dayOfWeek === 1 && hour === 21 && minute === 0) {
+        console.log('자동 업데이트 실행: 매주 월요일 21:00')
+        fetchLeaderboardData()
+      }
+    }
+    
+    // 1분마다 체크
+    const scheduleInterval = setInterval(checkAndUpdate, 60000)
+    
+    return () => clearInterval(scheduleInterval)
   }, [])
 
   // Responsive cards per view
@@ -126,8 +145,8 @@ function App() {
 
     const interval = setInterval(() => {
       setCurrentIndex(prev => {
-        const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
-        return prev >= totalSlides - 1 ? 0 : prev + 1
+        const maxIndex = leaderboardData.length - cardsPerView;
+        return prev >= maxIndex ? 0 : prev + 1
       })
     }, 4000)
 
@@ -136,15 +155,15 @@ function App() {
 
   const goToPrevious = () => {
     setCurrentIndex(prev => {
-      const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
-      return prev <= 0 ? totalSlides - 1 : prev - 1
+      const maxIndex = leaderboardData.length - cardsPerView;
+      return prev <= 0 ? maxIndex : prev - 1
     })
   }
 
   const goToNext = () => {
     setCurrentIndex(prev => {
-      const totalSlides = Math.ceil(leaderboardData.length / cardsPerView);
-      return prev >= totalSlides - 1 ? 0 : prev + 1
+      const maxIndex = leaderboardData.length - cardsPerView;
+      return prev >= maxIndex ? 0 : prev + 1
     })
   }
 
@@ -172,6 +191,13 @@ function App() {
     if (rank <= 5) return 'bg-blue-500 text-white'
     if (rank <= 10) return 'bg-green-500 text-white'
     return 'bg-purple-500 text-white'
+  }
+
+  const getMedalIcon = (rank) => {
+    if (rank === 1) return '🥇'
+    if (rank === 2) return '🥈'
+    if (rank === 3) return '🥉'
+    return `#${rank}`
   }
 
   const getInstagramUrl = (username) => {
@@ -220,7 +246,8 @@ function App() {
     )
   }
 
-  const totalSlides = Math.ceil(leaderboardData.length / cardsPerView); // Calculate total slides based on cards per view
+  const maxIndex = leaderboardData.length - cardsPerView; // Maximum scroll index
+  const totalIndicators = maxIndex + 1; // Total number of indicators
 
   return (
     <div className="leaderboard-main min-h-screen py-8">
@@ -238,7 +265,7 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+                transform: `translateX(-${currentIndex * 320}px)`,
               }}
             >
               {leaderboardData.map((item, index) => {
@@ -269,8 +296,10 @@ function App() {
                           }}
                         />
                         
-                        <div className={`absolute top-3 left-3 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${getRankColor(rank)}`}>
-                          #{rank}
+                        <div className={`absolute top-3 left-3 w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm ${getRankColor(rank)}`}>
+                          <span className={rank <= 3 ? 'text-2xl' : 'text-sm'}>
+                            {getMedalIcon(rank)}
+                          </span>
                         </div>
                         
                         <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
@@ -311,27 +340,27 @@ function App() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute -left-4 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute left-2 sm:left-4 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10 w-10 h-10 sm:w-12 sm:h-12"
                   onClick={goToPrevious}
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
                 
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute -right-4 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10"
+                  className="absolute right-2 sm:right-4 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10 w-10 h-10 sm:w-12 sm:h-12"
                   onClick={goToNext}
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </>
             )}
           </div>
 
-          {totalSlides > 1 && (
+          {totalIndicators > 1 && (
             <div className="indicators-container flex justify-center mt-6 space-x-2">
-              {Array.from({ length: totalSlides }, (_, index) => (
+              {Array.from({ length: totalIndicators }, (_, index) => (
                 <button
                   key={index}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
