@@ -27,13 +27,9 @@ function App() {
       setIsLoading(true)
       setError(null)
       
-      const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY
+      const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY || 'patvZr35hzPXZDDF0.38f4bf9d7b76e00d073fdff6351bc6201e5f552ab2ab37af25d49d33bf945e11'
       const BASE_ID = import.meta.env.VITE_BASE_ID || 'apphCg257EyPVwr7T'
       const TABLE_NAME = import.meta.env.VITE_TABLE_NAME || '영상 DB'
-      
-      if (!AIRTABLE_API_KEY) {
-        throw new Error('VITE_AIRTABLE_API_KEY environment variable is required')
-      }
       
       const response = await fetch(
         `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc`,
