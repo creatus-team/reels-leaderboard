@@ -175,7 +175,7 @@
 
 .mobile-container {
   width: 98%;
-  max-width: 1400px; /* Desktop: 6 cards - 넓은 영역 활용 */
+  max-width: 1600px; /* Desktop: 5 cards - 300px 카드에 맞게 조정 */
   margin: 0 auto;
 }
 
@@ -186,10 +186,17 @@
   }
 }
 
-/* Tablet: 3 cards */
+/* Tablet: 2 cards */
 @media (min-width: 768px) and (max-width: 1279px) {
   .mobile-container {
-    max-width: 675px; /* 3 cards * 220px + 2 gaps * 15px */
+    max-width: 640px; /* 2 cards * 300px + 1 gap * 20px */
+  }
+}
+
+/* Desktop: 5 cards */
+@media (min-width: 1280px) {
+  .mobile-container {
+    max-width: 1580px; /* 5 cards * 300px + 4 gaps * 20px */
   }
 }
 
@@ -229,7 +236,7 @@
 
 .slider-track {
   display: flex;
-  gap: 15px; /* 카드 간격 줄임 */
+  gap: 20px; /* 원래 카드 간격으로 복원 */
 }
 
 /* 페이드 아웃 효과 - 좌우 끝부분 투명 처리 */
@@ -260,8 +267,8 @@
 }
 
 .card-item {
-  width: 220px !important; /* 카드 너비 더 줄임 */
-  height: 600px !important; /* 높이도 줄임 */
+  width: 300px !important; /* 원래 카드 크기로 복원 */
+  height: 672px !important; /* 원래 높이로 복원 */
 }
 
 .indicators-container {

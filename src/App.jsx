@@ -129,9 +129,9 @@ function App() {
       if (width < 768) {
         setCardsPerView(1) // Mobile: 1 card
       } else if (width < 1280) {
-        setCardsPerView(3) // Tablet: 3 cards
+        setCardsPerView(2) // Tablet: 2 cards
       } else {
-        setCardsPerView(6) // Desktop: 6 cards
+        setCardsPerView(5) // Desktop: 5 cards
       }
     }
 
@@ -140,18 +140,26 @@ function App() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  // 진짜 무한 슬라이드 - 부드러운 연속 이동
   useEffect(() => {
     if (leaderboardData.length === 0) return
 
     const interval = setInterval(() => {
-      setCurrentIndex(prev => {
-        const maxIndex = leaderboardData.length - cardsPerView;
-        return prev >= maxIndex ? 0 : prev + 1
-      })
-    }, 3000) // 3초마다 자동 슬라이드
+      setCurrentIndex(prev => prev + 1) // 계속 증가
+    }, 3000) // 3초마다 이동
 
     return () => clearInterval(interval)
-  }, [leaderboardData.length, cardsPerView])
+  }, [leaderboardData.length])
+
+  // 긴 아이디 폰트 크기 자동 조절 함수
+  const getIdFontSize = (id) => {
+    if (!id) return 'text-lg'
+    const length = id.length
+    if (length > 20) return 'text-xs' // 매우 긴 아이디
+    if (length > 15) return 'text-sm' // 긴 아이디
+    if (length > 10) return 'text-base' // 보통 아이디
+    return 'text-lg' // 짧은 아이디
+  }
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
@@ -251,11 +259,13 @@ function App() {
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
-                transform: `translateX(-${currentIndex * 235}px)`,
+                transform: `translateX(-${(currentIndex % leaderboardData.length) * 320}px)`,
               }}
             >
-              {leaderboardData.map((item, index) => {
-                const rank = index + 1
+              {/* 무한 슬라이드를 위해 카드를 3번 반복 */}
+              {[...leaderboardData, ...leaderboardData, ...leaderboardData].map((item, index) => {
+                const originalIndex = index % leaderboardData.length
+                const rank = originalIndex + 1
 
                 
                 return (
@@ -303,10 +313,10 @@ function App() {
                       
                       <div className="p-4" style={{ minHeight: '120px' }}>
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-bold text-lg text-gray-800">
+                          <h3 className={`font-bold text-gray-800 break-words ${getIdFontSize(item["Instagram ID"])}`}>
                             {item["Instagram ID"]}
                           </h3>
-                          <Badge className={`text-xs ${getCategoryColor(item["카테고리"])}`}>
+                          <Badge className={`text-xs ${getCategoryColor(item["카테고리"])} flex-shrink-0 ml-2`}>
                             {item["카테고리"]}
                           </Badge>
                         </div>
