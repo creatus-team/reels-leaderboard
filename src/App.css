@@ -164,7 +164,8 @@
 }
 
 .slider-main {
-  width: 100%;
+  width: 100% !important; /* 임베드 시 전체 너비 활용 */
+  max-width: none !important; /* 최대 너비 제한 제거 */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -174,29 +175,35 @@
 }
 
 .mobile-container {
-  width: 98%;
-  max-width: 1600px; /* Desktop: 5 cards - 300px 카드에 맞게 조정 */
+  width: 100% !important; /* 임베드 시 전체 너비 활용 */
+  max-width: none !important; /* 최대 너비 제한 제거 */
   margin: 0 auto;
 }
 
-/* Mobile: 1 card */
+/* Mobile: 1 card - 전체 너비 활용 */
 @media (max-width: 767px) {
   .mobile-container {
-    max-width: 320px;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 10px; /* 최소한의 패딩만 */
   }
 }
 
-/* Tablet: 2 cards */
+/* Tablet: 전체 너비 활용으로 더 많은 카드 표시 */
 @media (min-width: 768px) and (max-width: 1279px) {
   .mobile-container {
-    max-width: 640px; /* 2 cards * 300px + 1 gap * 20px */
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 20px; /* 최소한의 패딩만 */
   }
 }
 
-/* Desktop: 5 cards */
+/* Desktop: 전체 너비 활용으로 최대한 많은 카드 표시 */
 @media (min-width: 1280px) {
   .mobile-container {
-    max-width: 1580px; /* 5 cards * 300px + 4 gaps * 20px */
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 30px; /* 최소한의 패딩만 */
   }
 }
 
