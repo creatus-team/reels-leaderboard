@@ -174,35 +174,89 @@
 }
 
 .mobile-container {
-  width: 95%;
-  max-width: 950px; /* Desktop: 4 cards - 스크롤바 확실히 방지 */
+  width: 98%;
+  max-width: 1400px; /* Desktop: 6 cards - 넓은 영역 활용 */
   margin: 0 auto;
 }
 
 /* Mobile: 1 card */
 @media (max-width: 767px) {
   .mobile-container {
-    max-width: 300px;
+    max-width: 320px;
   }
 }
 
-/* Tablet: 2 cards */
+/* Tablet: 3 cards */
 @media (min-width: 768px) and (max-width: 1279px) {
   .mobile-container {
-    max-width: 455px; /* 2 cards * 220px + 1 gap * 15px */
+    max-width: 675px; /* 3 cards * 220px + 2 gaps * 15px */
   }
 }
 
-/* Desktop: 4 cards */
-@media (min-width: 1280px) {
-  .mobile-container {
-    max-width: 925px; /* 4 cards * 220px + 3 gaps * 15px */
+/* 모바일 반응형 폰트 크기 증가 */
+@media (max-width: 767px) {
+  .card-item h3 {
+    font-size: 1.1rem !important; /* 모바일: 제목 크기 증가 */
+    font-weight: 700 !important;
+  }
+  
+  .card-item p {
+    font-size: 0.9rem !important; /* 모바일: 본문 크기 증가 */
+    line-height: 1.4 !important;
+  }
+  
+  .card-item .text-sm {
+    font-size: 0.85rem !important; /* 모바일: 작은 텍스트 크기 증가 */
+  }
+}
+
+/* 태블릿 반응형 폰트 크기 증가 */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .card-item h3 {
+    font-size: 1.05rem !important; /* 태블릿: 제목 크기 증가 */
+    font-weight: 600 !important;
+  }
+  
+  .card-item p {
+    font-size: 0.85rem !important; /* 태블릿: 본문 크기 증가 */
+    line-height: 1.4 !important;
+  }
+  
+  .card-item .text-sm {
+    font-size: 0.8rem !important; /* 태블릿: 작은 텍스트 크기 증가 */
   }
 }
 
 .slider-track {
   display: flex;
   gap: 15px; /* 카드 간격 줄임 */
+}
+
+/* 페이드 아웃 효과 - 좌우 끝부분 투명 처리 */
+.slider-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-wrapper::before,
+.slider-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px; /* 페이드 영역 너비 */
+  z-index: 10;
+  pointer-events: none;
+}
+
+.slider-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.slider-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 }
 
 .card-item {

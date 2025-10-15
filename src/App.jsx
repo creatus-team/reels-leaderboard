@@ -129,9 +129,9 @@ function App() {
       if (width < 768) {
         setCardsPerView(1) // Mobile: 1 card
       } else if (width < 1280) {
-        setCardsPerView(2) // Tablet: 2 cards
+        setCardsPerView(3) // Tablet: 3 cards
       } else {
-        setCardsPerView(4) // Desktop: 4 cards
+        setCardsPerView(6) // Desktop: 6 cards
       }
     }
 
@@ -141,31 +141,17 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (!isAutoPlaying || leaderboardData.length === 0) return
+    if (leaderboardData.length === 0) return
 
     const interval = setInterval(() => {
       setCurrentIndex(prev => {
         const maxIndex = leaderboardData.length - cardsPerView;
         return prev >= maxIndex ? 0 : prev + 1
       })
-    }, 4000)
+    }, 3000) // 3초마다 자동 슬라이드
 
     return () => clearInterval(interval)
-  }, [isAutoPlaying, leaderboardData.length, cardsPerView])
-
-  const goToPrevious = () => {
-    setCurrentIndex(prev => {
-      const maxIndex = leaderboardData.length - cardsPerView;
-      return prev <= 0 ? maxIndex : prev - 1
-    })
-  }
-
-  const goToNext = () => {
-    setCurrentIndex(prev => {
-      const maxIndex = leaderboardData.length - cardsPerView;
-      return prev >= maxIndex ? 0 : prev + 1
-    })
-  }
+  }, [leaderboardData.length, cardsPerView])
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
@@ -261,7 +247,7 @@ function App() {
         </div>
 
         <div className="slider-main w-full max-w-6xl flex flex-col items-center">
-          <div className="mobile-container relative overflow-hidden">
+          <div className="mobile-container slider-wrapper relative overflow-hidden">
             <div 
               className="slider-track flex transition-transform duration-500 ease-in-out gap-2"
               style={{ 
@@ -335,27 +321,7 @@ function App() {
               })}
             </div>
 
-            {leaderboardData.length > cardsPerView && (
-              <>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="absolute left-2 sm:left-4 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10 w-10 h-10 sm:w-12 sm:h-12"
-                  onClick={goToPrevious}
-                >
-                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="absolute right-2 sm:right-4 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg hover:bg-gray-50 z-10 w-10 h-10 sm:w-12 sm:h-12"
-                  onClick={goToNext}
-                >
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
-              </>
-            )}
+            {/* 자동 슬라이드로 인해 네비게이션 버튼 제거 */}
           </div>
 
           {totalIndicators > 1 && (
