@@ -27,62 +27,28 @@ function App() {
       setIsLoading(true)
       setError(null)
       
-      const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY || 'patvZr35hzPXZDDF0.38f4bf9d7b76e00d073fdff6351bc6201e5f552ab2ab37af25d49d33bf945e11'
-      const BASE_ID = import.meta.env.VITE_BASE_ID || 'apphCg257EyPVwr7T'
-      const TABLE_NAME = import.meta.env.VITE_TABLE_NAME || '영상 DB'
+      console.log('📊 정적 JSON 파일에서 리더보드 데이터를 로딩 중...')
       
-      const response = await fetch(
-        `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc`,
-        {
-          headers: {
-            'Authorization': `Bearer ${AIRTABLE_API_KEY}`
-          }
-        }
-      )
+      // 정적 JSON 파일에서 데이터 읽기
+      const response = await fetch('/data/current.json')
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`JSON 파일 로딩 실패: ${response.status}`)
       }
       
       const result = await response.json()
       
-      if (result.records) {
-        // Filter out entries without thumbnails and transform data
-        const allData = result.records
-          .filter(record => record.fields['썸네일'] && record.fields['썸네일'].length > 0)
-          .map(record => ({
-            'Instagram ID': record.fields['Instagram ID'] || '@unknown',
-            '조회수': record.fields['조회수'] || 0,
-            '조회수_한국어': formatViewCount(record.fields['조회수'] || 0),
-            '날짜': record.fields['날짜'] || '',
-            '카테고리': record.fields['카테고리'] || '기타',
-            '캡션': record.fields['캡션'] || '릴스 영상을 확인해보세요!',
-            '썸네일': record.fields['썸네일'] || null,
-            '영상URL': record.fields['URL'] || null
-          }))
-          .sort((a, b) => b["조회수"] - a["조회수"])
+      if (result.data && Array.isArray(result.data)) {
+        console.log(`✅ ${result.data.length}개의 리더보드 항목을 로딩했습니다.`)
+        console.log(`📅 마지막 업데이트: ${result.lastUpdated}`)
         
-        // Remove duplicates by keeping only the highest view count per Instagram ID
-        const uniqueData = []
-        const seenIds = new Set()
-        
-        for (const item of allData) {
-          if (!seenIds.has(item['Instagram ID'])) {
-            seenIds.add(item['Instagram ID'])
-            uniqueData.push(item)
-          }
-        }
-        
-        // Take top 15
-        const transformedData = uniqueData.slice(0, 15)
-        
-        setLeaderboardData(transformedData)
-        setLastUpdated(new Date())
+        setLeaderboardData(result.data)
+        setLastUpdated(new Date(result.lastUpdated))
       } else {
-        throw new Error('No records found')
+        throw new Error('JSON 파일 형식이 올바르지 않습니다.')
       }
     } catch (err) {
-      console.error('Error fetching leaderboard data:', err)
+      console.error('❌ 리더보드 데이터 로딩 실패:', err)
       setError(err.message)
       setLeaderboardData([])
     } finally {
@@ -240,7 +206,7 @@ function App() {
         <div className="header-container w-full max-w-6xl text-center mb-8">
           <div className="mobile-header bg-blue-600 text-white py-3 px-4 md:py-4 md:px-8 rounded-lg shadow-lg inline-block mb-6 max-w-full">
             <h1 className="title-text text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight">
-              크리투스에선 매주 새로운 성과자가 쏟아지고 있습니다
+                크리투스에선 매주 새로운 성과가 쏟아지고 있습니다
             </h1>
           </div>
         </div>
