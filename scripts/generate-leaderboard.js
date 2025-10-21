@@ -25,10 +25,18 @@ async function generateLeaderboard() {
   try {
     console.log('🚀 Airtable에서 데이터를 가져오는 중...');
     
+    // 2주 전 날짜 계산 (한국시간 기준)
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    const dateFilter = twoWeeksAgo.toISOString().split('T')[0]; // YYYY-MM-DD 형식
+    
+    console.log(`📅 필터링 기준: ${dateFilter} 이후 영상들만 대상`);
+    
     const response = await fetch(
       `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?` +
       `sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc&` +
-      `maxRecords=50&` + // 최대 50개 레코드만 가져오기
+      `maxRecords=100&` + // 필터링 후 15개 확보를 위해 100개로 증가
+      `filterByFormula=IS_AFTER({날짜}, '${dateFilter}')&` + // 2주 전 이후 날짜만
       `fields%5B%5D=Instagram%20ID&` +
       `fields%5B%5D=조회수&` +
       `fields%5B%5D=날짜&` +
@@ -80,6 +88,13 @@ async function generateLeaderboard() {
       // 상위 15개만 선택
       const transformedData = uniqueData.slice(0, 15);
       console.log(`✨ ${transformedData.length}개의 고유한 리더보드 항목을 생성했습니다.`);
+      
+      // 안전장치: 15개 미만이면 경고
+      if (transformedData.length < 15) {
+        console.log(`⚠️  경고: 최근 2주간 영상이 ${transformedData.length}개만 있습니다. (목표: 15개)`);
+        console.log(`📊 전체 필터링된 영상 수: ${allData.length}개`);
+        console.log(`👥 중복 제거 후: ${uniqueData.length}개`);
+      }
 
       // JSON 파일 생성
       const leaderboardData = {
