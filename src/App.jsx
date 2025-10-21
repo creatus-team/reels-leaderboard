@@ -250,7 +250,7 @@ function App() {
                           </span>
                         </div>
                         
-                        <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
+                        <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-3 py-2 rounded text-sm font-medium">
                           📅 {item["날짜"]}
                         </div>
                         
