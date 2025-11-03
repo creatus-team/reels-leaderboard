@@ -1,0 +1,50 @@
+name: Update Leaderboard Data
+
+on:
+  # 매일 오전 9시 (한국시간 기준)에 실행
+  schedule:
+    - cron: '0 0 * * *'  # UTC 00:00 = KST 09:00
+  
+  # 수동 실행도 가능하도록
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 체크아웃
+      uses: actions/checkout@v4
+      
+    - name: 🟢 Node.js 설정
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 📦 의존성 설치
+      run: npm ci --legacy-peer-deps
+      
+    - name: 🔄 리더보드 데이터 생성
+      env:
+        VITE_AIRTABLE_API_KEY: ${{ secrets.VITE_AIRTABLE_API_KEY }}
+        VITE_BASE_ID: ${{ secrets.VITE_BASE_ID }}
+        VITE_TABLE_NAME: ${{ secrets.VITE_TABLE_NAME }}
+      run: node scripts/generate-leaderboard.js
+      
+    - name: 🏗️ 프로젝트 빌드
+      run: npm run build
+      
+    - name: 🚀 Vercel 배포
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      run: |
+        npm install -g vercel
+        vercel --token $VERCEL_TOKEN --prod --yes
+        
+    - name: ✅ 완료 알림
+      run: |
+        echo "🎉 리더보드 자동 업데이트 완료!"
+        echo "📅 업데이트 시간: $(date)"
+        echo "🔗 사이트: https://reels-leaderboard.vercel.app"
