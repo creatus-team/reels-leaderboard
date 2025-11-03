@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import https from 'https';
+import http from 'http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +21,39 @@ const formatViewCount = (count) => {
   }
   return `${count}`;
 };
+
+// 이미지 다운로드 함수
+async function downloadImage(url, filepath) {
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https:') ? https : http;
+    
+    protocol.get(url, (response) => {
+      if (response.statusCode === 200) {
+        const fileStream = fs.createWriteStream(filepath);
+        response.pipe(fileStream);
+        
+        fileStream.on('finish', () => {
+          fileStream.close();
+          resolve(filepath);
+        });
+        
+        fileStream.on('error', (err) => {
+          fs.unlink(filepath, () => {}); // 실패 시 파일 삭제
+          reject(err);
+        });
+      } else {
+        reject(new Error(`HTTP ${response.statusCode}: ${response.statusMessage}`));
+      }
+    }).on('error', (err) => {
+      reject(err);
+    });
+  });
+}
+
+// 안전한 파일명 생성
+function sanitizeFilename(filename) {
+  return filename.replace(/[^a-z0-9._-]/gi, '_').toLowerCase();
+}
 
 // 리더보드 데이터 생성
 async function generateLeaderboard() {
@@ -95,6 +130,50 @@ async function generateLeaderboard() {
         console.log(`📊 전체 필터링된 영상 수: ${allData.length}개`);
         console.log(`👥 중복 제거 후: ${uniqueData.length}개`);
       }
+
+      // 이미지 다운로드 및 로컬 경로로 변경
+      console.log('🖼️  썸네일 이미지 다운로드 중...');
+      
+      // public/assets/thumbnails 디렉토리 생성
+      const thumbnailsDir = path.join(__dirname, '../public/assets/thumbnails');
+      if (!fs.existsSync(thumbnailsDir)) {
+        fs.mkdirSync(thumbnailsDir, { recursive: true });
+      }
+
+      // 각 항목의 이미지 다운로드
+      for (let i = 0; i < transformedData.length; i++) {
+        const item = transformedData[i];
+        if (item['썸네일'] && item['썸네일'].length > 0) {
+          try {
+            const thumbnailUrl = item['썸네일'][0].url;
+            const instagramId = sanitizeFilename(item['Instagram ID']);
+            const filename = `${instagramId}.jpg`;
+            const filepath = path.join(thumbnailsDir, filename);
+            
+            console.log(`📥 다운로드 중: ${item['Instagram ID']} -> ${filename}`);
+            await downloadImage(thumbnailUrl, filepath);
+            
+            // 로컬 경로로 변경 (Airtable 임시 URL 완전 제거, 필요한 메타데이터만 보존)
+            transformedData[i]['썸네일'] = [{
+              url: `/assets/thumbnails/${filename}`,
+              localPath: filepath,
+              filename: filename,
+              width: item['썸네일'][0].width,
+              height: item['썸네일'][0].height,
+              size: item['썸네일'][0].size,
+              type: item['썸네일'][0].type
+              // thumbnails 객체는 완전 제거하여 Airtable 임시 URL 방지
+            }];
+            
+            console.log(`✅ 완료: ${filename}`);
+          } catch (error) {
+            console.log(`❌ 실패: ${item['Instagram ID']} - ${error.message}`);
+            // 실패 시 원본 URL 유지
+          }
+        }
+      }
+      
+      console.log('🖼️  썸네일 다운로드 완료!');
 
       // JSON 파일 생성
       const leaderboardData = {
