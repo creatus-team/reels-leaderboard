@@ -1,10 +1,7 @@
 name: Update Leaderboard Data
 on:
-  # 매일 오전 9시 (한국시간 기준)에 실행
   schedule:
-    - cron: '0 0 * * *'  # UTC 00:00 = KST 09:00
-  
-  # 수동 실행도 가능하도록
+    - cron: '0 0 * * *'  # 매일 09:00 KST
   workflow_dispatch:
 permissions:
   contents: write
@@ -15,6 +12,8 @@ jobs:
     steps:
     - name: 📥 체크아웃
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # 날짜 계산을 위해 전체 히스토리 가져오기
       
     - name: 🟢 Node.js 설정
       uses: actions/setup-node@v4
@@ -42,10 +41,24 @@ jobs:
       run: |
         npm install -g vercel
         vercel --token $VERCEL_TOKEN --prod --yes
+    - name: 💓 생존 신고 (50일마다)
+      run: |
+        LAST_COMMIT=$(git log -1 --format=%ct)
+        NOW=$(date +%s)
+        DAYS_DIFF=$(( ($NOW - $LAST_COMMIT) / 86400 ))
         
-    - name: 💓 워크플로우 활성 유지
-      uses: gautamkrishnar/keepalive-workflow@v2
-      
+        echo "📅 마지막 커밋으로부터 ${DAYS_DIFF}일 지남"
+        
+        if [ $DAYS_DIFF -gt 50 ]; then
+          echo "⚠️ 50일 경과! 생존 신고 커밋 생성..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: keep workflow alive [skip ci]"
+          git push
+        else
+          echo "✅ 아직 50일 안 지남. 패스!"
+        fi
+        
     - name: ✅ 완료 알림
       run: |
         echo "🎉 리더보드 자동 업데이트 완료!"
