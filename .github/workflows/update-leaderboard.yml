@@ -1,5 +1,4 @@
 name: Update Leaderboard Data
-
 on:
   # 매일 오전 9시 (한국시간 기준)에 실행
   schedule:
@@ -7,7 +6,8 @@ on:
   
   # 수동 실행도 가능하도록
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -42,8 +42,10 @@ jobs:
       run: |
         npm install -g vercel
         vercel --token $VERCEL_TOKEN --prod --yes
+        
     - name: 💓 워크플로우 활성 유지
-      uses: gautamkrishnar/keepalive-workflow@v2    
+      uses: gautamkrishnar/keepalive-workflow@v2
+      
     - name: ✅ 완료 알림
       run: |
         echo "🎉 리더보드 자동 업데이트 완료!"
