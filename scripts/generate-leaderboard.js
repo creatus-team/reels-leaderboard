@@ -8,9 +8,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Airtable 설정
-const AIRTABLE_API_KEY = process.env.VITE_AIRTABLE_API_KEY || 'patvZr35hzPXZDDF0.38f4bf9d7b76e00d073fdff6351bc6201e5f552ab2ab37af25d49d33bf945e11';
-const BASE_ID = process.env.VITE_BASE_ID || 'apphCg257EyPVwr7T';
-const TABLE_NAME = process.env.VITE_TABLE_NAME || '영상 DB';
+const AIRTABLE_API_KEY = process.env.VITE_AIRTABLE_API_KEY;
+const BASE_ID = process.env.VITE_BASE_ID;
+const TABLE_NAME = process.env.VITE_TABLE_NAME;
+
+if (!AIRTABLE_API_KEY || !BASE_ID || !TABLE_NAME) {
+  console.error('❌ 환경변수가 설정되지 않았습니다: VITE_AIRTABLE_API_KEY, VITE_BASE_ID, VITE_TABLE_NAME');
+  process.exit(1);
+}
 
 // 조회수 포맷팅 함수
 const formatViewCount = (count) => {
@@ -59,41 +64,55 @@ function sanitizeFilename(filename) {
 async function generateLeaderboard() {
   try {
     console.log('🚀 Airtable에서 데이터를 가져오는 중...');
-    
-    // 2주 전 날짜 계산 (한국시간 기준)
-    const twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-    const dateFilter = twoWeeksAgo.toISOString().split('T')[0]; // YYYY-MM-DD 형식
-    
-    console.log(`📅 필터링 기준: ${dateFilter} 이후 영상들만 대상`);
-    
-    const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?` +
-      `sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc&` +
-      `maxRecords=100&` + // 필터링 후 15개 확보를 위해 100개로 증가
-      `filterByFormula=IS_AFTER({날짜}, '${dateFilter}')&` + // 2주 전 이후 날짜만
-      `fields%5B%5D=Instagram%20ID&` +
-      `fields%5B%5D=조회수&` +
-      `fields%5B%5D=날짜&` +
-      `fields%5B%5D=카테고리&` +
-      `fields%5B%5D=캡션&` +
-      `fields%5B%5D=썸네일&` +
-      `fields%5B%5D=URL`,
-      {
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_API_KEY}`
-        }
-      }
-    );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    // 기간별 시도: 2주 → 4주 → 8주 (데이터 부족 시 자동 확대)
+    const periodDays = [14, 28, 56];
+    let result = null;
+
+    for (const days of periodDays) {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - days);
+      const dateFilter = cutoff.toISOString().split('T')[0];
+
+      console.log(`📅 필터링 기준: ${dateFilter} 이후 (최근 ${days}일)`);
+
+      const response = await fetch(
+        `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}?` +
+        `sort%5B0%5D%5Bfield%5D=조회수&sort%5B0%5D%5Bdirection%5D=desc&` +
+        `maxRecords=100&` +
+        `filterByFormula=IS_AFTER({날짜}, '${dateFilter}')&` +
+        `fields%5B%5D=Instagram%20ID&` +
+        `fields%5B%5D=조회수&` +
+        `fields%5B%5D=날짜&` +
+        `fields%5B%5D=카테고리&` +
+        `fields%5B%5D=캡션&` +
+        `fields%5B%5D=썸네일&` +
+        `fields%5B%5D=URL`,
+        {
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      result = await response.json();
+      const withThumbnails = result.records.filter(r => r.fields['썸네일']?.length > 0);
+      console.log(`📊 ${result.records.length}개 중 썸네일 있는 것: ${withThumbnails.length}개`);
+
+      if (withThumbnails.length >= 15 || days === periodDays[periodDays.length - 1]) {
+        if (withThumbnails.length < 15) {
+          console.log(`⚠️ 최대 기간(${days}일)까지 확대했지만 ${withThumbnails.length}개뿐입니다.`);
+        }
+        break;
+      }
+      console.log(`📈 ${withThumbnails.length}개로 부족합니다. 기간을 확대합니다...`);
     }
 
-    const result = await response.json();
-    console.log(`📊 ${result.records.length}개의 레코드를 가져왔습니다.`);
-
-    if (result.records) {
+    if (result && result.records) {
       // 썸네일이 있는 데이터만 필터링하고 변환
       const allData = result.records
         .filter(record => record.fields['썸네일'] && record.fields['썸네일'].length > 0)
