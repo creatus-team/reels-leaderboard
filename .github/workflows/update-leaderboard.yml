@@ -1,10 +1,13 @@
 name: Update Leaderboard Data
+
 on:
   schedule:
-    - cron: '0 0 * * *'  # 매일 09:00 KST
+    - cron: '0 0 * * *'
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -13,7 +16,7 @@ jobs:
     - name: 📥 체크아웃
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # 날짜 계산을 위해 전체 히스토리 가져오기
+        fetch-depth: 0
       
     - name: 🟢 Node.js 설정
       uses: actions/setup-node@v4
@@ -33,32 +36,23 @@ jobs:
     - name: 🏗️ 프로젝트 빌드
       run: npm run build
       
-    - name: 🚀 Vercel 배포
+    - name: 🚀 Vercel 배포 (빌드 결과물 직접 배포)
       env:
         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
         VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       run: |
         npm install -g vercel
-        vercel --token $VERCEL_TOKEN --prod --yes
-    - name: 💓 생존 신고 (50일마다)
+        vercel build --prod --token $VERCEL_TOKEN --yes
+        vercel deploy --prebuilt --prod --token $VERCEL_TOKEN --yes
+
+    - name: 💾 생성된 데이터를 Git에 커밋
       run: |
-        LAST_COMMIT=$(git log -1 --format=%ct)
-        NOW=$(date +%s)
-        DAYS_DIFF=$(( ($NOW - $LAST_COMMIT) / 86400 ))
-        
-        echo "📅 마지막 커밋으로부터 ${DAYS_DIFF}일 지남"
-        
-        if [ $DAYS_DIFF -gt 50 ]; then
-          echo "⚠️ 50일 경과! 생존 신고 커밋 생성..."
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "chore: keep workflow alive [skip ci]"
-          git push
-        else
-          echo "✅ 아직 50일 안 지남. 패스!"
-        fi
-        
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add public/data/ public/assets/thumbnails/ -f
+        git diff --staged --quiet && echo "✅ 변경사항 없음" || (git commit -m "chore: update leaderboard data [skip ci]" && git push)
+
     - name: ✅ 완료 알림
       run: |
         echo "🎉 리더보드 자동 업데이트 완료!"
