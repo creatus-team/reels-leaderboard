@@ -1,26 +1,6 @@
 {
   "data": [
     {
-      "Instagram ID": "place__lab",
-      "조회수": 5784378,
-      "조회수_한국어": "578만",
-      "날짜": "2026-03-07",
-      "카테고리": "비즈니스",
-      "캡션": "빠진 업종 알려주세요!\n\n#장사 #자영업 #자영업자",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/place__lab.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/place__lab.jpg",
-          "filename": "place__lab.jpg",
-          "width": 640,
-          "height": 1136,
-          "size": 30996,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DVlUoTtjwDs/"
-    },
-    {
       "Instagram ID": "luv_ddiddi",
       "조회수": 4095787,
       "조회수_한국어": "409만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DV2iW9vkc8L/"
+    },
+    {
+      "Instagram ID": "simplefty",
+      "조회수": 419236,
+      "조회수_한국어": "41만",
+      "날짜": "2026-03-10",
+      "카테고리": "살림/육아",
+      "캡션": "카리나님이 데뷔초에 피부 트러블로 고생했다는데,\n요즘은 꿀피부잖아요?\n그 비결 중 하나가 잘때 베개에 수건깔고 자는 거라고!\n이건 카리나님 말고도 \n꽤 많은 연예인들의 습관이더라고요.\n\n베개커버 자주 바꿔주는게 좋은데\n실상은 바꿔주기 힘드니\n수건을 까는건데,\n근데 수건도 사실 먼지 가득하잖아요.\n그래서 저는 이거 깔고 잡니다!\n\n소창 베개커버인데요.\n먼지 없고 세균 없는 원단이라\n피부에 훨씬훠을씬 좋아요.\n\n몽그레 소창베개커버는\n시중의 소창 중에서도 특히 더 보들한 촉감이라\n오히려 일반 베개 쓸때보다도 \n더 보들보들해서 기분 좋게 잠들어요.\n\n뒤에 밴딩이 있어서\n간편하게 1초만에 끼우고 뺄 수 있고요.\n팍팍 삶아서 쓰실거라면 끈형도 있습니다.\n\n🌿몽그레 소창 베개커버는\n4개 이상 구매시 추가할인 적용돼요.\n매일 바꿔주면서 쓰세요.\n\n⭐️\n소창원단 원가가 워낙 높은 편이라\n특가는 못했는데\n네이버 메가위크 세일에 선정되어\n장당 1,000원씩 할인 적용돼요.\n거기다 4장 이상 구매시 추가 10%할인!\n댓글 남기면 몽그레 소창베개커버 특가 링크 보내드릴게요💚",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/simplefty.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/simplefty.jpg",
+          "filename": "simplefty.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 61528,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DVsoHsSDvfi/"
     }
   ],
-  "lastUpdated": "2026-03-20T01:21:35.726Z",
+  "lastUpdated": "2026-03-21T01:16:36.690Z",
   "weekStart": "2026-03-16",
-  "generatedAt": "2026-03-20T01:21:35.726Z"
+  "generatedAt": "2026-03-21T01:16:36.690Z"
 }
