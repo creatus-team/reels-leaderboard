@@ -201,26 +201,6 @@
       "영상URL": "https://www.instagram.com/p/DWdelSzk_Uw/"
     },
     {
-      "Instagram ID": "lego_asap",
-      "조회수": 631661,
-      "조회수_한국어": "63만",
-      "날짜": "2026-03-20",
-      "카테고리": "헬스케어",
-      "캡션": "반쪽짜리 운동은 이제 그만😭\n\n평소에 엉덩이를 앞으로 빼고\n서 있는 자세가 편하다면\n\n허리 척추뼈 4번 또는 5번에 그 하중이\n실리게 되는데 단순 허리통증이 아닌\n\n“척추전방전위증“ ”척추분리증“까지도\n이어질 수 있습니다\n\n평소 관리만이 답이기 때문에\n영상에 나오는대로 운동하시고\n\n한시간에 한번씩 의식적으로\n내 자세가 어떤지 확인하는 습관을 들이세요!!\n\n제발~~😭",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/lego_asap.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/lego_asap.jpg",
-          "filename": "lego_asap.jpg",
-          "width": 1080,
-          "height": 1919,
-          "size": 74790,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DWFflGaAdEl/"
-    },
-    {
       "Instagram ID": "place__lab",
       "조회수": 561112,
       "조회수_한국어": "56만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DWLyjQVEjdd/"
+    },
+    {
+      "Instagram ID": "hayan_cook",
+      "조회수": 454109,
+      "조회수_한국어": "45만",
+      "날짜": "2026-03-29",
+      "카테고리": "요리",
+      "캡션": "마라탕 파티🍜\n\n중학생이 된 첫째 반장된 기념으로\n친구들 초대해 마라탕 파티를 했어요\n마라탕을 좋아하는 친구들에게 인정받아 너무 기뻤습니다ㅋㅋ\n맵지 않은데 맛있대요ㅠㅠ\n3.6L 해치운 친구들 대다내..✨\n마라스톡은 200ml=한포가 젤 맛있는것같아요🤤\n마음놓고 마라탕 파티할 준비!!!!🔥\n\nD-1\n건강하고 맛있는 마라스톡\n3/30 내일 오전 10시에 만나요!!!!!🔥",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/hayan_cook.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/hayan_cook.jpg",
+          "filename": "hayan_cook.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 47329,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DWcvPlbD1fM/"
     }
   ],
-  "lastUpdated": "2026-04-02T01:28:21.059Z",
+  "lastUpdated": "2026-04-03T01:43:37.426Z",
   "weekStart": "2026-03-30",
-  "generatedAt": "2026-04-02T01:28:21.059Z"
+  "generatedAt": "2026-04-03T01:43:37.426Z"
 }
