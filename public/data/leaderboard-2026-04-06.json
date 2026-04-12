@@ -41,26 +41,6 @@
       "영상URL": "https://www.instagram.com/p/DWfbpD0CTgX/"
     },
     {
-      "Instagram ID": "morinyeo",
-      "조회수": 904929,
-      "조회수_한국어": "90만",
-      "날짜": "2026-03-29",
-      "카테고리": "뷰티/미용",
-      "캡션": "요즘 근황&남자친구 프로젝트 진행 상황 보고👩🏻‍💻(?)ㅋㅋ",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/morinyeo.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/morinyeo.jpg",
-          "filename": "morinyeo.jpg",
-          "width": 640,
-          "height": 1136,
-          "size": 57685,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DWdelSzk_Uw/"
-    },
-    {
       "Instagram ID": "o_onuri05",
       "조회수": 767208,
       "조회수_한국어": "76만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DWjcVzxCFCv/"
+    },
+    {
+      "Instagram ID": "just_gu__it",
+      "조회수": 441098,
+      "조회수_한국어": "44만",
+      "날짜": "2026-04-04",
+      "카테고리": "퍼스널",
+      "캡션": "처음에 자전거랑 짐만 보고 여행객인 줄 알았습니다",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/just_gu__it.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/just_gu__it.jpg",
+          "filename": "just_gu__it.jpg",
+          "width": 1012,
+          "height": 1800,
+          "size": 200596,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DWs2dtNkgaD/"
     }
   ],
-  "lastUpdated": "2026-04-11T01:27:52.307Z",
+  "lastUpdated": "2026-04-12T01:51:43.998Z",
   "weekStart": "2026-04-06",
-  "generatedAt": "2026-04-11T01:27:52.307Z"
+  "generatedAt": "2026-04-12T01:51:43.998Z"
 }
