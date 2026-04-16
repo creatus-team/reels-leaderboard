@@ -201,26 +201,6 @@
       "영상URL": "https://www.instagram.com/p/DWv4Je1D3ZI/"
     },
     {
-      "Instagram ID": "mealu_u",
-      "조회수": 568704,
-      "조회수_한국어": "56만",
-      "날짜": "2026-04-02",
-      "카테고리": "요리",
-      "캡션": "이게 왜…\n\n요거요거 해외에서 난리난 레시피라\n저도 해봤거든요\n너무 맛있어 보이잖아요🥚💛\n\n근데..\n음.. \n달걀 맛있다!! 정도?!🤣\n\n이거 해보신 분~~\n해보실 분~~?!\n어땠는지 댓글로 알려주세요💛💛",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/mealu_u.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/mealu_u.jpg",
-          "filename": "mealu_u.jpg",
-          "width": 640,
-          "height": 1136,
-          "size": 85859,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DWnfsgBk6ll/"
-    },
-    {
       "Instagram ID": "glowith_an",
       "조회수": 562146,
       "조회수_한국어": "56만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DW3zw0Mk09j/"
+    },
+    {
+      "Instagram ID": "ssun__flow",
+      "조회수": 482589,
+      "조회수_한국어": "48만",
+      "날짜": "2026-04-07",
+      "카테고리": "퍼스널",
+      "캡션": "선크림 매일 바르는데 왜 기미가 생기냐고요?\n바르는 방법이 틀렸을 수도 있어요 😮\n오늘 남편이 선크림 대충 바르는 거 보고 눈 감을까? 했지만 \n잘못된 점 3가지  ㅋㅋㅋ (우리 집만 이런 거 아니죠…?)\n\n✔ 손바닥에 짜서 탁 문지르면 차단막에 구멍 생겨요\n— 콕 콕 찍어서 문지르지 말고 두들기기 \n✔ 양은 500원짜리 동전 크기 = 손가락 2마디\n— 이것보다 적으면 SPF 의미 없어요\n✔ 아침에 한 번? 2~3시간마다 덧발라야 진짜 차단돼요\n이 중에 나도 모르게 하던 거 있으셨나요?\n\n이 글을 남편에게 공유해보세요 !  우리남편만 몰랐던 게 아니길 😅\n\n#뷰티팁 #30대피부 #피부관리",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/ssun__flow.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/ssun__flow.jpg",
+          "filename": "ssun__flow.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 60551,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DW0_Q_AES0x/"
     }
   ],
-  "lastUpdated": "2026-04-15T01:48:36.294Z",
+  "lastUpdated": "2026-04-16T01:56:27.801Z",
   "weekStart": "2026-04-13",
-  "generatedAt": "2026-04-15T01:48:36.294Z"
+  "generatedAt": "2026-04-16T01:56:27.801Z"
 }
