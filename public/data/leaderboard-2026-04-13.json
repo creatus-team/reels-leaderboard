@@ -61,26 +61,6 @@
       "영상URL": "https://www.instagram.com/p/DW_FJn8P0L7/"
     },
     {
-      "Instagram ID": "just_gu__it",
-      "조회수": 1002838,
-      "조회수_한국어": "100만",
-      "날짜": "2026-04-04",
-      "카테고리": "퍼스널",
-      "캡션": "처음에 자전거랑 짐만 보고 여행객인 줄 알았습니다",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/just_gu__it.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/just_gu__it.jpg",
-          "filename": "just_gu__it.jpg",
-          "width": 1012,
-          "height": 1800,
-          "size": 200596,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DWs2dtNkgaD/"
-    },
-    {
       "Instagram ID": "my_youth_nae_youth",
       "조회수": 892478,
       "조회수_한국어": "89만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DW9F7NNSXnr/"
+    },
+    {
+      "Instagram ID": "heyru.home",
+      "조회수": 390961,
+      "조회수_한국어": "39만",
+      "날짜": "2026-04-05",
+      "카테고리": "살림/육아",
+      "캡션": "2천원으로 만드는\n다이소표 보냉파우치🫶🏻\n\n유치원에 아이 냉장약 보낼때\n딱이예요‼️\n\n✏️만드는 순서\n먼저, 파우치를 뒤집어까주세요!\n보냉팩 모든 면을 파우치보다 1cm 정도\n길게 잘라주시고 자른 보냉팩의\n지퍼쪽 부분을 제외한 나머지 부분의\n끝 쪽에 양면테이프를 붙여줍니다\n파우치 안쪽 사이즈에 맞게\n붙여준 후, 다시 원래대로 뒤집어주면\n미니 보냉파우치 완성👏\n\n#헤이루홈생활꿀팁",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/heyru.home.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/heyru.home.jpg",
+          "filename": "heyru.home.jpg",
+          "width": 1080,
+          "height": 1920,
+          "size": 181203,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DWuy34_CRy7/"
     }
   ],
-  "lastUpdated": "2026-04-17T01:51:59.621Z",
+  "lastUpdated": "2026-04-18T01:44:24.259Z",
   "weekStart": "2026-04-13",
-  "generatedAt": "2026-04-17T01:51:59.621Z"
+  "generatedAt": "2026-04-18T01:44:24.259Z"
 }
