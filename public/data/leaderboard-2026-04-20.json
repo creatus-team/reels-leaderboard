@@ -141,26 +141,6 @@
       "영상URL": "https://www.instagram.com/p/DXIg-uuEp0Y/"
     },
     {
-      "Instagram ID": "twojeong_sjy",
-      "조회수": 897194,
-      "조회수_한국어": "89만",
-      "날짜": "2026-04-08",
-      "카테고리": "퍼스널",
-      "캡션": "여러분은 3대덕을 쌓으셨나요? (궁금궁금)\n\n #신혼부부 #커플 #대화 #대화주제 #좋은남편",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/twojeong_sjy.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/twojeong_sjy.jpg",
-          "filename": "twojeong_sjy.jpg",
-          "width": 640,
-          "height": 1136,
-          "size": 34020,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DW2jqvTjzBb/"
-    },
-    {
       "Instagram ID": "glowith_an",
       "조회수": 704925,
       "조회수_한국어": "70만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DW55axGJFia/"
+    },
+    {
+      "Instagram ID": "pill_yaksa",
+      "조회수": 443570,
+      "조회수_한국어": "44만",
+      "날짜": "2026-04-12",
+      "카테고리": "헬스케어",
+      "캡션": "건강에 진심인 의사·약사 부부가\n성분 따져서 고른 코스트코 건강 먹거리 15가지!\n지금 바로 저장해두세요.\n\n팔로우 하고 댓글에 “코코” 남기면\n👉 나머지 리스트도 보내 드릴게요.\n\n필약사는 시간·돈 아끼는 건강꿀팁 계속 알려드릴게요❣️\n\n#코스트코#코코#건강식#건강식단#약사",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/pill_yaksa.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/pill_yaksa.jpg",
+          "filename": "pill_yaksa.jpg",
+          "width": 540,
+          "height": 960,
+          "size": 84417,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DXByhSuDzCV/"
     }
   ],
-  "lastUpdated": "2026-04-21T01:52:37.497Z",
+  "lastUpdated": "2026-04-22T01:51:36.547Z",
   "weekStart": "2026-04-20",
-  "generatedAt": "2026-04-21T01:52:37.497Z"
+  "generatedAt": "2026-04-22T01:51:36.547Z"
 }
