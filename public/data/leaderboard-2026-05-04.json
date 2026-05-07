@@ -121,26 +121,6 @@
       "영상URL": "https://www.instagram.com/p/DXisGl-v3_R/"
     },
     {
-      "Instagram ID": "dasik.yaksa",
-      "조회수": 790676,
-      "조회수_한국어": "79만",
-      "날짜": "2026-04-23",
-      "카테고리": "헬스케어",
-      "캡션": "진짜 광고 아니구 약사 최애 소화제\n\n소화효소눈 pH몇에서 작용하냐가 중요한데\n이건 세가지 뽜뽜뽜로\n위 상부 하부 소장에서\n탄 단 지를 뽜뽜뽜!!!\n\n아주..다음에 체하면 한번 드셔보새요\n#다제스\n\n너무 칭찬릴레이인데 진짜 광고아님",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/dasik.yaksa.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/dasik.yaksa.jpg",
-          "filename": "dasik.yaksa.jpg",
-          "width": 640,
-          "height": 1136,
-          "size": 56357,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DXehRwSD51Q/"
-    },
-    {
       "Instagram ID": "its.hangyul",
       "조회수": 755559,
       "조회수_한국어": "75만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DXgvxDzE0SG/"
+    },
+    {
+      "Instagram ID": "ssummic",
+      "조회수": 572895,
+      "조회수_한국어": "57만",
+      "날짜": "2026-04-30",
+      "카테고리": "퍼스널",
+      "캡션": "소문의 낙원 🌳\n\n#소문의낙원 #지치고힘든나 #랜더스치어리더",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/ssummic.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/ssummic.jpg",
+          "filename": "ssummic.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 81599,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DXvkUPKy36v/"
     }
   ],
-  "lastUpdated": "2026-05-06T02:04:48.026Z",
+  "lastUpdated": "2026-05-07T02:06:59.225Z",
   "weekStart": "2026-05-04",
-  "generatedAt": "2026-05-06T02:04:48.026Z"
+  "generatedAt": "2026-05-07T02:06:59.226Z"
 }
