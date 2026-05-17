@@ -41,26 +41,6 @@
       "영상URL": "https://www.instagram.com/p/DX_izsDy3gZ/"
     },
     {
-      "Instagram ID": "o_onuri05",
-      "조회수": 1383470,
-      "조회수_한국어": "138만",
-      "날짜": "2026-05-03",
-      "카테고리": "퍼스널",
-      "캡션": "요즘 난리난 꿀조합 불닭양파쌈 먹방 막차타고 왔습니다 🚍\nwith 육회, 연어, 만두까지 🫶\n\n📌 육연초밥 : @yby_official_\n📌 만두 : @bibigo.kr 진한고기만두 🫶\n\n#먹방 #불닭양파쌈 #불닭레시피 #mukbang #연어",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/o_onuri05.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/o_onuri05.jpg",
-          "filename": "o_onuri05.jpg",
-          "width": 720,
-          "height": 1280,
-          "size": 122561,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DX30VtHpLxR/"
-    },
-    {
       "Instagram ID": "black_jinjuu",
       "조회수": 1180379,
       "조회수_한국어": "118만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DX840DfJUeO/"
+    },
+    {
+      "Instagram ID": "place__lab",
+      "조회수": 366833,
+      "조회수_한국어": "36만",
+      "날짜": "2026-05-09",
+      "카테고리": "비즈니스",
+      "캡션": "체험단을 해도 매출이 안 오른다면\n제대로 된 방법을 몰라서 그렇습니다.\n\n댓글에 ‘자료’ 적어 주시면\n1초만에 체험단 총 정리 자료 보내드릴게요!\n\n#장사 #자영업 #블로그",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/place__lab.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/place__lab.jpg",
+          "filename": "place__lab.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 24161,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DYGlIFhinxe/"
     }
   ],
-  "lastUpdated": "2026-05-16T02:10:28.298Z",
+  "lastUpdated": "2026-05-17T02:25:49.403Z",
   "weekStart": "2026-05-11",
-  "generatedAt": "2026-05-16T02:10:28.298Z"
+  "generatedAt": "2026-05-17T02:25:49.403Z"
 }
