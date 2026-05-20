@@ -41,26 +41,6 @@
       "영상URL": "https://www.instagram.com/p/DYC5e6nhYYc/"
     },
     {
-      "Instagram ID": "style_2na",
-      "조회수": 2039331,
-      "조회수_한국어": "203만",
-      "날짜": "2026-05-06",
-      "카테고리": "패션",
-      "캡션": "허리가 애매하게 큰바지 \n묶을때 리본? 이제 노노\n이렇게 해보세요\n풀었다 묶었다 할필요없어서 짱편해요👍\n\n아직도 리본으로 묶는 칭구에게 공유~슝📩",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/style_2na.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/style_2na.jpg",
-          "filename": "style_2na.jpg",
-          "width": 1080,
-          "height": 1920,
-          "size": 140336,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DX_izsDy3gZ/"
-    },
-    {
       "Instagram ID": "kindcong",
       "조회수": 1994085,
       "조회수_한국어": "199만",
@@ -299,9 +279,29 @@
         }
       ],
       "영상URL": "https://www.instagram.com/p/DYRXw5YO79t/"
+    },
+    {
+      "Instagram ID": "morinyeo",
+      "조회수": 730160,
+      "조회수_한국어": "73만",
+      "날짜": "2026-05-08",
+      "카테고리": "뷰티/미용",
+      "캡션": "해명합니다.. 🔥여리셔츠 오늘 마감!!🔥",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/morinyeo.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/morinyeo.jpg",
+          "filename": "morinyeo.jpg",
+          "width": 640,
+          "height": 1136,
+          "size": 29355,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DYE-Y0LTFp8/"
     }
   ],
-  "lastUpdated": "2026-05-19T02:34:37.228Z",
+  "lastUpdated": "2026-05-20T02:34:43.743Z",
   "weekStart": "2026-05-18",
-  "generatedAt": "2026-05-19T02:34:37.228Z"
+  "generatedAt": "2026-05-20T02:34:43.743Z"
 }
