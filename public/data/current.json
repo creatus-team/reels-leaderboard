@@ -21,26 +21,6 @@
       "영상URL": "https://www.instagram.com/p/DZRXZnsT_Hq/"
     },
     {
-      "Instagram ID": "salim_jopd",
-      "조회수": 1167738,
-      "조회수_한국어": "116만",
-      "날짜": "2026-06-03",
-      "카테고리": "살림/육아",
-      "캡션": "< 못다 드린 말씀 > \n이영상에 나온 집까지 총 3곳의 샤워기 수압 문제를 해결해 줬어요. \n\n영상 보시면 아시겠지만, 정말 쉬워요. \n\n그런데 해결해 드릴 때마다 다들 ' 오 ~ '라고 감탄을 해주셔서 \n\n오히려 무안했습니다. \n\n일자 드라이버나, 동전만 있으면 샤워기 수압문제 해결이 되고요 \n만약에 이래도 해결이 안 된다면, 집으로 들어오는 물의 수압을 체크해 보셔야 해요.",
-      "썸네일": [
-        {
-          "url": "/assets/thumbnails/salim_jopd.jpg",
-          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/salim_jopd.jpg",
-          "filename": "salim_jopd.jpg",
-          "width": 720,
-          "height": 1280,
-          "size": 219741,
-          "type": "image/jpeg"
-        }
-      ],
-      "영상URL": "https://www.instagram.com/p/DZHxYt-hll3/"
-    },
-    {
       "Instagram ID": "leeseul__1381",
       "조회수": 1152957,
       "조회수_한국어": "115만",
@@ -221,6 +201,26 @@
       "영상URL": "https://www.instagram.com/p/DZKGPOZJaEm/"
     },
     {
+      "Instagram ID": "salim_jopd",
+      "조회수": 826908,
+      "조회수_한국어": "82만",
+      "날짜": "2026-06-04",
+      "카테고리": "살림/육아",
+      "캡션": "< 못다 드린 말씀 > \n\n샤워기 물이 차가워서 정말 아~주 조금 톡 물온도 올렸는데, 확 뜨거워지는 경우 많이 겪으시죠? \n찬물과 뜨거운 물 수압이 큰 차이가 나면 그래요. \n\n이럴 땐 영상에서 알려드린 것처럼 찬물과 뜨거운 물 수압을 비슷하게 만들어 주면 됩니다. \n그러고 나서 본인 취향대로 수압을 미세조정 하면서 최적화시키시면 돼요^^ \n\n다만 주의하실 것은 왼쪽으로 너무 많이 돌리시면 그 돌리는 부분이 빠져나오면서 물난리가 날 수 있어요. 이 부분 주의하셔서 적당히 돌려주셔요",
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/salim_jopd.jpg",
+          "localPath": "/home/runner/work/reels-leaderboard/reels-leaderboard/public/assets/thumbnails/salim_jopd.jpg",
+          "filename": "salim_jopd.jpg",
+          "width": 720,
+          "height": 1280,
+          "size": 190909,
+          "type": "image/jpeg"
+        }
+      ],
+      "영상URL": "https://www.instagram.com/p/DZKWQU1hfLu/"
+    },
+    {
       "Instagram ID": "dodai_cook",
       "조회수": 752084,
       "조회수_한국어": "75만",
@@ -301,7 +301,7 @@
       "영상URL": "https://www.instagram.com/p/DZMDZlKC-bC/"
     }
   ],
-  "lastUpdated": "2026-06-16T02:55:54.823Z",
+  "lastUpdated": "2026-06-17T02:53:01.953Z",
   "weekStart": "2026-06-15",
-  "generatedAt": "2026-06-16T02:55:54.823Z"
+  "generatedAt": "2026-06-17T02:53:01.953Z"
 }
