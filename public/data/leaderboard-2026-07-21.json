@@ -105,7 +105,11 @@
       "날짜": "2026-07-29",
       "카테고리": "",
       "캡션": "",
-      "썸네일": null,
+      "썸네일": [
+        {
+          "url": "https://zhienvfubkxmfhalcxox.supabase.co/storage/v1/object/public/student-assets/weekly_thumbs/DbXHrCopLoY.jpg"
+        }
+      ],
       "영상URL": "https://instagram.com/p/DbXHrCopLoY/"
     },
     {
@@ -241,7 +245,11 @@
       "날짜": "2026-07-25",
       "카테고리": "",
       "캡션": "",
-      "썸네일": null,
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/DbN5nihJgDv.jpg"
+        }
+      ],
       "영상URL": "https://instagram.com/p/DbN5nihJgDv/"
     },
     {
@@ -265,11 +273,15 @@
       "날짜": "2026-07-24",
       "카테고리": "",
       "캡션": "",
-      "썸네일": null,
+      "썸네일": [
+        {
+          "url": "/assets/thumbnails/DbLKF1zSLGr.jpg"
+        }
+      ],
       "영상URL": "https://instagram.com/p/DbLKF1zSLGr/"
     }
   ],
-  "lastUpdated": "2026-08-04T06:42:40.866Z",
+  "lastUpdated": "2026-08-04T06:49:34.128Z",
   "weekStart": "2026-07-21",
-  "generatedAt": "2026-08-04T06:42:40.867Z"
+  "generatedAt": "2026-08-04T06:49:34.129Z"
 }

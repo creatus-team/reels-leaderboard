@@ -60,13 +60,51 @@ async function generateLeaderboard() {
       console.log(`📈 ${result.items.length}개로 부족합니다. 기간을 확대합니다...`);
     }
 
+    // Supabase Storage 공개 버킷 베이스 — 응답에 섞인 절대 URL에서 유도 (없으면 고정값)
+    const sampleAbs = result.items.map(x => x.thumb).find(t => /^https?:\/\/.*\/weekly_thumbs\//.test(t || ''));
+    const STORAGE_BASE = sampleAbs
+      ? sampleAbs.replace(/\/weekly_thumbs\/.*$/, '/weekly_thumbs')
+      : 'https://zhienvfubkxmfhalcxox.supabase.co/storage/v1/object/public/student-assets/weekly_thumbs';
+
+    const thumbsDir = path.join(__dirname, '../public/assets/thumbnails');
+    if (!fs.existsSync(thumbsDir)) fs.mkdirSync(thumbsDir, { recursive: true });
+
+    // 썸네일 3단 폴백: ① 절대 URL 그대로 → ② Storage 캐시 조립 후 존재 확인 → ③ 인스타 직접 다운로드
+    async function resolveThumb(it) {
+      if (/^https?:\/\//.test(it.thumb || '')) return it.thumb;
+      const m = /\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/.exec(it.url || '');
+      if (!m) return null;
+      const sc = m[1];
+      // ② Storage 캐시 (트래커 파이프라인이 늦게 캐시하는 경우 자동 회복)
+      try {
+        const r = await fetch(`${STORAGE_BASE}/${sc}.jpg`, { method: 'HEAD' });
+        if (r.ok) return `${STORAGE_BASE}/${sc}.jpg`;
+      } catch { /* 다음 폴백 */ }
+      // ③ 인스타 공개 미디어 엔드포인트에서 다운로드해 로컬 자산으로 커밋
+      try {
+        const r = await fetch(`https://www.instagram.com/p/${sc}/media/?size=l`, {
+          redirect: 'follow',
+          headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' }
+        });
+        if (r.ok && (r.headers.get('content-type') || '').startsWith('image/')) {
+          const buf = Buffer.from(await r.arrayBuffer());
+          if (buf.length > 1000) {
+            fs.writeFileSync(path.join(thumbsDir, `${sc}.jpg`), buf);
+            console.log(`📥 인스타에서 썸네일 확보: ${it.handle} (${sc}.jpg)`);
+            return `/assets/thumbnails/${sc}.jpg`;
+          }
+        }
+      } catch { /* 플레이스홀더 */ }
+      return null;
+    }
+
     // 트래커가 이미 계정당 1개·조회수 내림차순·제외계정 반영까지 끝낸 TOP 20을 준다.
     let missingThumb = 0;
-    const transformedData = result.items.map((it) => {
-      // 절대 URL 썸네일만 사용 (상대경로는 트래커 비번 게이트 뒤라 외부에서 못 읽음)
-      const thumbUrl = /^https?:\/\//.test(it.thumb || '') ? it.thumb : null;
+    const transformedData = [];
+    for (const it of result.items) {
+      const thumbUrl = await resolveThumb(it);
       if (!thumbUrl) missingThumb++;
-      return {
+      transformedData.push({
         'Instagram ID': it.handle || it.primary_ig || '@unknown',
         '조회수': it.view_count || 0,
         '조회수_한국어': formatViewCount(it.view_count || 0),
@@ -75,8 +113,8 @@ async function generateLeaderboard() {
         '캡션': '',
         '썸네일': thumbUrl ? [{ url: thumbUrl }] : null,
         '영상URL': it.url || null
-      };
-    });
+      });
+    }
 
     console.log(`✨ ${transformedData.length}개의 리더보드 항목을 생성했습니다.`);
     if (missingThumb > 0) {
