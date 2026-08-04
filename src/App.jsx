@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Trophy, ExternalLink, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent } from '@/components/ui/card.jsx'
-import { Badge } from '@/components/ui/badge.jsx'
 import './App.css'
 import placeholderImage from './assets/placeholder.jpg'
 import thumb1 from './assets/thumb1.jpeg'
@@ -120,19 +119,6 @@ function App() {
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
-  }
-
-  const getCategoryColor = (category) => {
-    const colors = {
-      '뷰티/미용': 'bg-pink-100 text-pink-800',
-      '살림/육아': 'bg-orange-100 text-orange-800',
-      '비즈니스': 'bg-blue-100 text-blue-800',
-      '헬스케어': 'bg-green-100 text-green-800',
-      '퍼스널': 'bg-purple-100 text-purple-800',
-      '패션': 'bg-indigo-100 text-indigo-800',
-      '기타': 'bg-gray-100 text-gray-800'
-    }
-    return colors[category] || colors['기타']
   }
 
   const getRankColor = (rank) => {
@@ -263,19 +249,10 @@ function App() {
 
                       </div>
                       
-                      <div className="p-4" style={{ minHeight: '120px' }}>
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className={`font-bold text-gray-800 break-words ${getIdFontSize(item["Instagram ID"])}`}>
-                            {item["Instagram ID"]}
-                          </h3>
-                          <Badge className={`text-xs ${getCategoryColor(item["카테고리"])} flex-shrink-0 ml-2`}>
-                            {item["카테고리"]}
-                          </Badge>
-                        </div>
-                        
-                        <p className="text-gray-600 text-sm line-clamp-1">
-                          {item["캡션"] || '릴스 영상을 확인해보세요!'}
-                        </p>
+                      <div className="p-4 flex items-center" style={{ minHeight: '72px' }}>
+                        <h3 className={`font-bold text-gray-800 break-words ${getIdFontSize(item["Instagram ID"])}`}>
+                          {item["Instagram ID"]}
+                        </h3>
                       </div>
                     </CardContent>
                   </Card>
